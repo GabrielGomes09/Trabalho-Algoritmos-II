@@ -1,0 +1,48 @@
+início
+    ler N
+
+    criar matriz NxN
+
+    // Adiciona valores a matriz
+    para i de 0 até N-1 faça
+        para j de 0 até N-1 faça
+            ler valor
+            enquanto valor < -127 ou valor > 127 faça
+                exibir "Número Inválido, tente novamente"
+                ler valor
+            fim enquanto
+            matriz[i][j] ← valor
+        fim para
+    fim para
+
+    resposta ← matriz[0][0]
+
+    // Define a posição superior esquerda do subretângulo
+    para linha_inicial de 0 até N faça
+        para coluna_inicial de 0 até N faça
+            // Define a posição inferior direita do subretângulo
+            para linha_final de linha_inicial até N faça
+                para coluna_final de coluna_inicial até N faça
+
+                    soma ← 0
+                    // Calcula a soma dos elementos do subretângulo
+                    para i de linha_inicial até linha_final faça
+                        para j de coluna_inicial até coluna_final faça
+                            soma ← soma + matriz[i][j]
+                        fim para
+                    fim para
+                    // Atualiza a melhor soma encontrada
+                    se soma > resposta então
+                        resposta ← soma
+                    fim se
+
+                fim para
+            fim para
+
+        fim para
+    fim para
+
+    exibir "Soma:", resposta
+
+
+fim

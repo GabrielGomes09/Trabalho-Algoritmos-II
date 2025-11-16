@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main() {
     int n;
     scanf("%d", &n);
 
     // Aloca a matriz dinamicamente, sem ser assim não funciona
-    int **matriz = (int **)malloc(n * sizeof(int *));
+    int **matriz = (int **)malloc(n * sizeof(int ));
     for (int i = 0; i < n; i++) {
-        matriz[i] = (int *)malloc(n * sizeof(int));
+        matriz[i] = (int)malloc(n * sizeof(int));
     }
-    
+
     int num;
 
     for (int i = 0; i < n; i++) {
@@ -24,11 +25,8 @@ int main() {
         }
     }
 
-    int resposta = -10000;
-    int linha_inicial = 0;
-    int coluna_inicial = 0;
-    int linha_final = 0;
-    int coluna_final = 0;
+    int resposta = matriz[0][0];
+    clock_t tempo0 = clock();
 
     for (int i1 = 0; i1 < n; i1++) {
         for (int j1 = 0; j1 < n; j1++) {
@@ -43,10 +41,6 @@ int main() {
                     }
                     if (soma > resposta) {
                         resposta = soma;
-                        linha_inicial = i1;
-                        coluna_inicial = j1;
-                        linha_final = i2;
-                        coluna_final = j2;
                     }
 
                 }
@@ -54,8 +48,11 @@ int main() {
         }
     }
 
+    clock_t tempo1 = clock();
+
+    double tempo_execucao = (double) (tempo1 - tempo0) / CLOCKS_PER_SEC;
     printf("Soma: %d\n", resposta);
-    
+    printf("Tempo: %.6f segundos", tempo_execucao);
 
     for (int i = 0; i < n; i++) {
         free(matriz[i]);
